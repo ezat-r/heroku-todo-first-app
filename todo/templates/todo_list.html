@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To Do List</title>
+</head>
+<body>
+    <h1>My To Do list</h1>
+    <table>
+        {% for item in items %}
+        <tr>
+            {% if item.done %}
+            <td><strike>{{item.name}}</strike></td>
+            {% else %}
+            <td>{{item.name}}</td>
+            {% endif %}
+            <td>
+                <form action="toggle/{{item.id}}" method="POST">{% csrf_token %}<button type="submit">Toggle</button></form>
+            </td>
+            <td>
+                <form action="edit-item/{{item.id}}" method="GET"><button type="submit">Edit</button></form>
+            </td>
+        </tr>
+        {% empty %}
+        <p>No items yet added.</p>
+        {% endfor %}
+    </table>
+    <p><a href="/add-item">Add Item</a></p>
+</body>
+</html>
